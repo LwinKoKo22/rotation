@@ -1,34 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
-<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-<script>
-$(document).on("pagecreate",function(event){
-  $(window).on("orientationchange",function(event){
-    alert("Orientation changed to: " + event.orientation);
-  });                     
-});
-</script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    // (A) LOCK SCREEN ORIENTATION
+function lock (orientation) {
+  // (A1) GO INTO FULL SCREEN FIRST
+  let de = document.documentElement;
+  if (de.requestFullscreen) { de.requestFullscreen(); }
+  else if (de.mozRequestFullScreen) { de.mozRequestFullScreen(); }
+  else if (de.webkitRequestFullscreen) { de.webkitRequestFullscreen(); }
+  else if (de.msRequestFullscreen) { de.msRequestFullscreen(); }
+
+  // (A2) THEN LOCK ORIENTATION
+  screen.orientation.lock(orientation);
+}
+
+// (B) UNLOCK SCREEN ORIENTATION
+function unlock () {
+  // (B1) UNLOCK FIRST
+  screen.orientation.unlock();
+
+  // (B2) THEN EXIT FULL SCREEN
+  if (document.exitFullscreen) { document.exitFullscreen(); }
+  else if (document.webkitExitFullscreen) { document.webkitExitFullscreen(); }
+  else if (document.mozCancelFullScreen) { document.mozCancelFullScreen(); }
+  else if (document.msExitFullscreen) { document.msExitFullscreen(); }
+}
+  </script>
 </head>
 <body>
+  <h1>LOCK PORTRAIT</h1>
+<input type="button" value="Portrait" onclick="lock('portrait')">
+<input type="button" value="Portrait Primary" onclick="lock('portrait-primary')">
+<input type="button" value="Portrait Secondary" onclick="lock('portrait-secondary')">
 
-<div data-role="page">
-  <div data-role="header">
-    <h1>The orientationchange Event</h1>
-  </div>
+<h1>LOCK LANDSCAPE</h1>
+<input type="button" value="Landscape" onclick="lock('landscape')">
+<input type="button" value="Landscape Primary" onclick="lock('landscape-primary')">
+<input type="button" value="Landscape Secondary" onclick="lock('landscape-secondary')">
 
-  <div data-role="main" class="ui-content">
-    <p>Try to rotate your device!</p>
-    <p><b>Note:</b> You must use a mobile device, or a mobile emulator to see the effect of this event.</p>
-  </div>
-
-  <div data-role="footer">
-    <h1>Footer Text</h1>
-  </div>
-</div> 
-
+<h1>UNLOCK</h1>
+<input type="button" value="Unlock" onclick="unlock()">
 </body>
 </html>
