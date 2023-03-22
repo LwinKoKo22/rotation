@@ -1,56 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <style>
-    body{ 
-      background:black; 
-      color:white; 
-    }
-
-    #ball{ 
-	position: absolute; 
-	border-radius: 100%; 
-	outline: #FFF dashed 20px; 
-	background: radial-gradient(#fff7a7,#ffd100); 
-	width: 150px; 
-	height: 150px; 
-	left: 45%; 
-	top: 35%;
-	transition: left 0.2s linear, top 0.2s linear, transform 0.2s linear;
-}
-    </style>
+	<title>Screen Orientation Demo</title>
+	<style>
+		#myDiv {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 100px;
+			height: 100px;
+			background-color: red;
+			text-align: center;
+			line-height: 100px;
+			color: white;
+			font-size: 24px;
+		}
+	</style>
 </head>
 <body>
-  <div id="report_box"></div>
-<div id="ball"></div>
+	<div id="myDiv">Hello</div>
 
-<script>
-	let sensor = new Gyroscope();
-	let x, y, z, report;
-	sensor.start();
-	sensor.onreading = () => {
-		report = "X-axis Angle Velocity: " + sensor.x + "<br>";
-		report += "Y-axis Angle Velocity: " + sensor.y + "<br>";
-		report += "Z-axis Angle Velocity: " + sensor.z + "<br>";
-		report += "Ball current X = "+ball.offsetLeft+"<br>";
-		report += "Ball current Y= "+ball.offsetTop+"<br>";
-		report += "Ball current Rotation= "+z+"deg<br>";
-		report_box.innerHTML = report;
-		x = sensor.x * 100;
-		y = sensor.y * 100;
-		z = sensor.z * -33;
-		ball.style.left = (ball.offsetLeft + x)+"px";
-		ball.style.top = (ball.offsetTop - y)+"px";
-		ball.style.transform = "rotate("+z+"deg)";
-	};
-	sensor.onerror = errorHandler;
-	function errorHandler(event){
-		console.log(event.error.name, event.error.message);
-	}
-</script>
+	<script>
+		function updatePosition() {
+			var myDiv = document.getElementById("myDiv");
+			if (window.orientation == 0 || window.orientation == 180) {
+				// Portrait mode
+				myDiv.style.left = "10px";
+				myDiv.style.top = "50%";
+				myDiv.style.transform = "translate(0, -50%)";
+			} else {
+				// Landscape mode
+				myDiv.style.left = "50%";
+				myDiv.style.top = "calc(100% - 110px)";
+				myDiv.style.transform = "translate(-50%, 0)";
+			}
+		}
+
+		// Call the updatePosition function on page load and on orientation change
+		window.addEventListener("load", updatePosition);
+		window.addEventListener("orientationchange", updatePosition);
+	</script>
 </body>
 </html>

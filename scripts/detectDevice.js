@@ -1,23 +1,26 @@
-document.addEventListener("DOMContentLoaded", initDetect)
+window.addEventListener('deviceorientation', handleOrientation);
 
-function initDetect(){
-  window.addEventListener("resize", detectDevice)
-  detectDevice()
+function handleOrientation(event) {
+  const alpha = event.alpha;
+  const beta = event.beta;
+  const gamma = event.gamma;
+  // Do stuff...
 }
 
-detectDevice = () => {
-  let detectDeviceObj = {
-    device: !!navigator.maxTouchPoints ? 'mobile' : 'computer',
-    orientation: !navigator.maxTouchPoints ? 'desktop' : !window.screen.orientation.angle ? 'portrait' : 'landscape'
+function onClick() {
+  if (typeof DeviceMotionEvent.requestPermission === 'function') {
+    // Handle iOS 13+ devices.
+    DeviceMotionEvent.requestPermission()
+      .then((state) => {
+        if (state === 'granted') {
+          window.addEventListener('devicemotion', handleOrientation);
+        } else {
+          console.error('Request to access the orientation was rejected');
+        }
+      })
+      .catch(console.error);
+  } else {
+    // Handle regular non iOS 13+ devices.
+    window.addEventListener('devicemotion', handleOrientation);
   }
-
-  updateText(detectDeviceObj)
-}
-
-updateText = (detectDeviceObj) => {
-  let h1Text = document.querySelector(".h1_text")
-  let h2Text = document.querySelector(".h2_text")
-
-  h1Text.innerHTML = `Device: ${detectDeviceObj.device}`
-  h2Text.innerHTML = `Orientation: ${detectDeviceObj.orientation}`
 }
