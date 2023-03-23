@@ -3,18 +3,9 @@ html{
     width: 100%;
 }
 
-
-button{
-    position: absolute;
-    top: 20px;
-    left: 20px;
-}
-
 .cube{
 display: flex;
 justify-content: center;
-align-items: center;
-min-height: 100vh;
 }
 
 .face{
@@ -24,6 +15,7 @@ min-height: 100vh;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     background-color: #ccc;
     border: 1px solid #999;
+    margin-top: 25px;
 }
 
 /* .mb-2{
