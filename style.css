@@ -3,10 +3,6 @@ html{
     width: 100%;
 }
 
-body{
-box-sizing: border-box;
-}
-
 .face{
     left: 0px;
     right: 0px;
