@@ -7,10 +7,11 @@ html{
     position: relative;
     width: 100px;
     height: 230px;
-    /* transform-style: preserve-3d;
-    transform: translate(-50%,-50%); */
+    transform-style: preserve-3d;
+    transform: translate(-50%,-50%);
     margin-left: 50vw;
     margin-top: 50vh;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .face{
