@@ -2,11 +2,11 @@ function handlerOrientation(e){
     console.log(e);
 
     // let alpha = e.alpha;
-    let beta = e.beta;
-    // let gamma = e.gamma;
+    // let beta = e.beta;
+    let gamma = e.gamma;
 
     let cube = document.querySelector('.cube');
-    cube.style.transform = 'rotateZ(' + beta + 'deg )';
+    cube.style.transform = 'rotateZ(' + gamma + 'deg )';
 }
 
 async function requestDeviceOrientation(){
