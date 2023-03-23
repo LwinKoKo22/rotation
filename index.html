@@ -1,45 +1,100 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Screen Orientation Demo</title>
-	<style>
-		#myDiv {
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			width: 100px;
-			height: 100px;
-			background-color: red;
-			text-align: center;
-			line-height: 100px;
-			color: white;
-			font-size: 24px;
-		}
-	</style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 <body>
-	<div id="myDiv">Hello</div>
+    <table>
+  <tr>
+    <td>API used</td>
+    <td id="moApi"></td>
+  </tr>
+  <tr>
+    <td>linear acceleration (excl. gravity)</td>
+    <td id="moAccel"></td>
+  </tr>
+  <tr>
+    <td>acceleration incl. gravity</td>
+    <td id="moAccelGrav"></td>
+  </tr>
+  <tr>
+    <td>rotation rate</td>
+    <td id="moRotation"></td>
+  </tr>
+  <tr>
+    <td>interval (ms)</td>
+    <td id="moInterval"></td>
+  </tr>
+</table>
+<p><small>Demo based on <a href="https://www.html5rocks.com/en/tutorials/device/orientation/" target="_blank" rel="noopener">HTML5 Rocks</a> article.</small></p>
+<script>
+    if ('LinearAccelerationSensor' in window && 'Gyroscope' in window) {
+  document.getElementById('moApi').innerHTML = 'Generic Sensor API';
+  
+  let lastReadingTimestamp;
+  let accelerometer = new LinearAccelerationSensor();
+  accelerometer.addEventListener('reading', e => {
+    if (lastReadingTimestamp) {
+      intervalHandler(Math.round(accelerometer.timestamp - lastReadingTimestamp));
+    }
+    lastReadingTimestamp = accelerometer.timestamp
+    accelerationHandler(accelerometer, 'moAccel');
+  });
+  accelerometer.start();
+  
+  if ('GravitySensor' in window) {
+    let gravity = new GravitySensor();
+    gravity.addEventListener('reading', e => accelerationHandler(gravity, 'moAccelGrav'));
+    gravity.start();
+  }
+  
+  let gyroscope = new Gyroscope();
+  gyroscope.addEventListener('reading', e => rotationHandler({
+    alpha: gyroscope.x,
+    beta: gyroscope.y,
+    gamma: gyroscope.z
+  }));
+  gyroscope.start();
+  
+} else if ('DeviceMotionEvent' in window) {
+  document.getElementById('moApi').innerHTML = 'Device Motion API';
+  
+  var onDeviceMotion = function (eventData) {
+    accelerationHandler(eventData.acceleration, 'moAccel');
+    accelerationHandler(eventData.accelerationIncludingGravity, 'moAccelGrav');
+    rotationHandler(eventData.rotationRate);
+    intervalHandler(eventData.interval);
+  }
+  
+  window.addEventListener('devicemotion', onDeviceMotion, false);
+} else {
+  document.getElementById('moApi').innerHTML = 'No Accelerometer & Gyroscope API available';
+}
 
-	<script>
-		function updatePosition() {
-			var myDiv = document.getElementById("myDiv");
-			if (window.orientation == 0 || window.orientation == 180) {
-				// Portrait mode
-				myDiv.style.left = "10px";
-				myDiv.style.top = "50%";
-				myDiv.style.transform = "translate(0, -50%)";
-			} else {
-				// Landscape mode
-				myDiv.style.left = "50%";
-				myDiv.style.top = "calc(100% - 110px)";
-				myDiv.style.transform = "translate(-50%, 0)";
-			}
-		}
+function accelerationHandler(acceleration, targetId) {
+  var info, xyz = "[X, Y, Z]";
 
-		// Call the updatePosition function on page load and on orientation change
-		window.addEventListener("load", updatePosition);
-		window.addEventListener("orientationchange", updatePosition);
-	</script>
+  info = xyz.replace("X", acceleration.x && acceleration.x.toFixed(3));
+  info = info.replace("Y", acceleration.y && acceleration.y.toFixed(3));
+  info = info.replace("Z", acceleration.z && acceleration.z.toFixed(3));
+  document.getElementById(targetId).innerHTML = info;
+}
+
+function rotationHandler(rotation) {
+  var info, xyz = "[X, Y, Z]";
+
+  info = xyz.replace("X", rotation.alpha && rotation.alpha.toFixed(3));
+  info = info.replace("Y", rotation.beta && rotation.beta.toFixed(3));
+  info = info.replace("Z", rotation.gamma && rotation.gamma.toFixed(3));
+  document.getElementById("moRotation").innerHTML = info;
+}
+
+function intervalHandler(interval) {
+  document.getElementById("moInterval").innerHTML = interval;
+}
+</script>
 </body>
 </html>
