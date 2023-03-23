@@ -20,7 +20,7 @@ html{
     background-color: #ccc;
     border: 1px solid #999;
 }
-
+/* 
 .front{
     background-color: yellow;
     transform: translateZ(50px);
@@ -49,4 +49,4 @@ html{
 .right{
     background-color: aqua;
     transform: rotateY(90deg) translateZ(50px);
-}
+} */
