@@ -1,6 +1,5 @@
 function handlerOrientation(e){
     console.log(e);
-
     let alpha = e.alpha;
     // let beta = e.beta;
     // let gamma = e.gamma;
