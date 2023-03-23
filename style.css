@@ -6,7 +6,7 @@ html{
 .cube{
     position: relative;
     width: 100px;
-    height: 400px;
+    height: 100px;
     transform-style: preserve-3d;
     transform: translate(-50%,-50%);
     margin-left: 50vw;
