@@ -5,7 +5,7 @@ function handlerOrientation(e){
     // let gamma = e.gamma;
 
     let cube = document.querySelector('.face');
-    cube.style.transform = 'rotateZ(' + alpha + 'deg )';
+    cube.style.transform = 'rotateZ(-' + alpha + 'deg )';
 }
 
 async function requestDeviceOrientation(){
