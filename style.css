@@ -6,7 +6,7 @@ html{
 .cube{
     position: relative;
     width: 100px;
-    height: 100px;
+    height: 400px;
     transform-style: preserve-3d;
     transform: translate(-50%,-50%);
     margin-left: 50vw;
@@ -22,25 +22,31 @@ html{
 }
 
 .front{
+    background-color: yellow;
     transform: translateZ(50px);
 }
 
 .back{
+    background-color: green;
     transform: rotateY(180deg) translateZ(50px);
 }
 
 .top{
+    background-color: crimson;
     transform: rotateX(-90deg) translateZ(50px);
 }
 
 .bottom{
+    background-color: blue;
     transform: rotateX(90deg) translateZ(50px);
 }
 
 .left{
+    background-color: violet;
     transform: rotateY(-90deg) translateZ(50px);
 }
 
 .right{
+    background-color: aqua;
     transform: rotateY(90deg) translateZ(50px);
 }
