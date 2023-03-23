@@ -3,8 +3,14 @@ html{
     width: 100%;
 }
 
+*{
+left: 0px;
+right: 0px;
+}
 
 .face{
+    left: 0px;
+    right: 0px;
     margin: 50px auto;
     width: 100px;
     height: 230px;
