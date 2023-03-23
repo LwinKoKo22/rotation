@@ -5,7 +5,12 @@ function handlerOrientation(e){
     // let gamma = e.gamma;
 
     let cube = document.querySelector('.face');
-    cube.style.transform = 'rotateZ(' + alpha + 'turn )';
+    if (alpha <= 10) {
+        cube.style.transform = 'rotateZ(' + 0 + 'turn)';
+    } else {
+        cube.style.transform = 'rotateZ(' + alpha + 'turn )';
+    }
+   
 }
 
 async function requestDeviceOrientation(){
