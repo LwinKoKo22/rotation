@@ -1,15 +1,10 @@
 function handlerOrientation(e){
-    console.log(e.alpha);
     let alpha = e.alpha;
     // let beta = e.beta;
     // let gamma = e.gamma;
 
     let cube = document.querySelector('.face');
-    if (alpha <= 10) {
-        cube.style.transform = 'rotateZ(' + 0 + 'turn)';
-    } else {
-        cube.style.transform = 'rotateZ(' + alpha + 'turn )';
-    }
+    cube.style.transform = 'rotateZ(' + alpha + 'turn )';
    
 }
 
