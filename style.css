@@ -7,8 +7,8 @@ html{
     position: relative;
     width: 100px;
     height: 230px;
-    transform-style: preserve-3d;
-    transform: translate(-50%,-50%);
+    /* transform-style: preserve-3d;
+    transform: translate(-50%,-50%); */
     margin-left: 50vw;
     margin-top: 50vh;
 }
