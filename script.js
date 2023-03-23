@@ -3,10 +3,10 @@ function handlerOrientation(e){
 
     let alpha = e.alpha;
     let beta = e.beta;
-    let gamma = e.gamma;
+    // let gamma = e.gamma;
 
     let cube = document.querySelector('.cube');
-    cube.style.transform = 'rotateX(' + beta + 'deg ) rotateY(' + gamma + 'deg )';
+    cube.style.transform = 'rotateX(' + beta + 'deg )  rotateZ(' + alpha + 'deg )';
 }
 
 async function requestDeviceOrientation(){
